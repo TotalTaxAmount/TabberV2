@@ -28,6 +28,7 @@ public class Server {
                 new EchoThread(socket).start();
                 Set<Thread> threads = EchoThread.getAllStackTraces().keySet();
                 System.out.println(threads);
+
         }
     }
 

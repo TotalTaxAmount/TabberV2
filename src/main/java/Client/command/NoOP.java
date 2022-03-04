@@ -1,6 +1,5 @@
-package Client;
+package Client.command;
 
-import Client.command.ICommand;
 import Client.utils.ConsoleColor;
 
 import java.io.BufferedReader;
