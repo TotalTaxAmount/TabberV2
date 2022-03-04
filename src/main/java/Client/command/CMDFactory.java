@@ -2,6 +2,7 @@ package Client.command;
 
 import Client.NoOP;
 import Client.command.commands.TestCommand;
+import Client.command.commands.lucascmd;
 
 import java.util.HashMap;
 
@@ -11,6 +12,7 @@ public class CMDFactory {
     public CMDFactory() {
         this.commands = new HashMap<>();
         commands.put("test", new TestCommand());
+        commands.put("bitches", new lucascmd());
 
     }
 
