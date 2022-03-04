@@ -1,6 +1,5 @@
 package Client.command;
 
-import Client.NoOP;
 import Client.command.commands.TestCommand;
 import Client.command.commands.lucascmd;
 
