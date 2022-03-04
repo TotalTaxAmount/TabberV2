@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class lucascmd implements ICommand {
     @Override
     public void run(ArrayList<String> args, BufferedReader receive, PrintWriter send) {
-        send.println("discord porn");
+        send.println(Prefixes.INFO + "discord porn");
 
     }
 }

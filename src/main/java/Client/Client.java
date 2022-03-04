@@ -3,6 +3,7 @@ package Client;
 import Client.command.CMDFactory;
 import Client.command.ICommand;
 
+import java.awt.*;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ public class Client {
     private Socket socket;
     private final CMDFactory cmdfactory = new CMDFactory();
     private static final Pattern pattern = Pattern.compile("(\\w+)\\s?([a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]+)?\\s?([a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]+)?\\s?([a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]+)?\\s?([a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]+)?\\s?([a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]+)?");
+
+    public Client() throws AWTException {
+    }
 
 
     public void run() throws InterruptedException {
@@ -65,7 +69,7 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, AWTException {
         Client client = new Client();
         client.run();
     }

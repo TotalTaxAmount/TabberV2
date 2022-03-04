@@ -37,7 +37,7 @@ public class EchoThread extends Thread {
 
             while (true)
             {
-                System.out.println(ANSI_CYAN + "[i] " + "Enter a cmd...");
+                System.out.println(ANSI_CYAN + "[I] " + "Enter a cmd...");
                 System.out.print(ANSI_BRIGHT_BLUE + "[C] " + ANSI_RESET);
                 String command = cmdInput.readLine();
                 if(!command.equalsIgnoreCase("exit"))
