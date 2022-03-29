@@ -1,9 +1,6 @@
 package Client.command;
 
-import Client.command.commands.Admin;
-import Client.command.commands.Tab;
-import Client.command.commands.TestCommand;
-import Client.command.commands.lucascmd;
+import Client.command.commands.*;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -14,9 +11,9 @@ public class CMDFactory {
     public CMDFactory() throws AWTException {
         this.commands = new HashMap<>();
         commands.put("test", new TestCommand());
-        commands.put("bitches", new lucascmd());
         commands.put("admin", new Admin());
         commands.put("tab", new Tab());
+        commands.put("info", new Info());
 
     }
 
