@@ -8,5 +8,4 @@ import java.util.ArrayList;
 
 public interface ICommand {
     void run(ArrayList<String> args, BufferedReader receive, PrintWriter send);
-    default String discription;
 }

@@ -45,7 +45,14 @@ public class EchoThread extends Thread {
                    send.println(command);
                    //System.out.println(cmdInput.readLine());
                    send.flush();
-                   System.out.println(receive.readLine());
+                   String response = "";
+                   while (!response.equals("done")) {
+                       if (!response.equals("")) {
+                           System.out.println(ANSI_CYAN + "[I] " + response);
+                       }
+                       response = receive.readLine();
+
+                   }
                    Thread.sleep(1000);
                 } else {
                     send.println("exit");

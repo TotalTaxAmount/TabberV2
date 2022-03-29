@@ -22,5 +22,7 @@ public class Tab implements ICommand {
         robot.keyRelease(18);
         robot.keyRelease(9);
         send.println(Prefixes.SUCCESS + "Successfully tabbed");
+        send.println("done");
+
     }
 }
