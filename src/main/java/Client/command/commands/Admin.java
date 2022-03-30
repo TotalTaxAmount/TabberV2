@@ -1,7 +1,7 @@
 package Client.command.commands;
 
-import Client.command.ICommand;
-import Client.utils.ConsoleColor;
+import Client.command.Command;
+import Client.utils.Prefixes;
 
 import java.io.BufferedReader;
 import java.io.OutputStream;
@@ -13,7 +13,11 @@ import java.util.prefs.Preferences;
 import static java.lang.System.setErr;
 import static java.util.prefs.Preferences.systemRoot;
 
-public class Admin implements ICommand {
+public class Admin extends Command {
+    public Admin() {
+        super("Admin", "Check if TabberV2 is admin", "admin");
+    }
+
     @Override
     public void run(ArrayList<String> args, BufferedReader receive, PrintWriter send) {
         if(isRunningAsAdministrator()) {

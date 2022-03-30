@@ -48,7 +48,7 @@ public class EchoThread extends Thread {
                    String response = "";
                    while (!response.equals("done")) {
                        if (!response.equals("")) {
-                           System.out.println(ANSI_CYAN + "[I] " + response);
+                           System.out.println(response);
                        }
                        response = receive.readLine();
 

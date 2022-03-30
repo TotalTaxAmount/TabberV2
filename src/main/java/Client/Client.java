@@ -1,7 +1,8 @@
 package Client;
 
 import Client.command.CMDFactory;
-import Client.command.ICommand;
+import Client.command.Command;
+import Client.command.NoOP;
 
 import java.awt.*;
 import java.io.*;
@@ -39,7 +40,7 @@ public class Client {
 
                 String cmd = "";
 
-                ICommand cmdObject;
+                Command cmdObject = null;
                 ArrayList<String> args = new ArrayList<>();
                 Matcher matcher;
 
@@ -53,18 +54,26 @@ public class Client {
                         }
                     }
                     if (args.size() > 0) {
-                        cmdObject = cmdfactory.createCommand(args.get(1));
-                        cmdObject.run(args, receive, send);
+                        for (Command c : cmdfactory.getCommands()) {
+                            if (c.getName().equalsIgnoreCase(args.get(1))) {
+                                cmdObject = c;
+                            }
+                        }
                     }
+                    if (cmdObject == null) {
+                        cmdObject = new NoOP();
+                    }
+                    cmdObject.run(args, receive, send);
                 }
-                    send.close();
-                    receive.close();
-                    socket.close();
-                    break;
+                send.close();
+                receive.close();
+                socket.close();
+                break;
 
-            } catch(IOException | InterruptedException ignored){
+            } catch (IOException | InterruptedException ignored) {
                 System.out.println("Server unexpectedly closed connection trying to reconnect in 10 seconds...");
                 Thread.sleep(10000);
+
             }
         }
     }

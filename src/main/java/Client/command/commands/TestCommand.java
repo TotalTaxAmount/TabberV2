@@ -1,15 +1,11 @@
 package Client.command.commands;
 
-import Client.command.ICommand;
+import Client.command.Command;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 
-public class TestCommand implements ICommand {
-    @Override
-    public void run(ArrayList<String> args, BufferedReader receive, PrintWriter send) {
-        send.println(Prefixes.INFO + "TestCmd good");
-        send.println("done");
+public class TestCommand extends Command {
+
+    public TestCommand() {
+        super("Test", "test cmd", "test");
     }
 }

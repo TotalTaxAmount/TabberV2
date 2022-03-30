@@ -1,4 +1,4 @@
-package Client.command.commands;
+package Client.utils;
 
 import Client.utils.ConsoleColor;
 

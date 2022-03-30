@@ -1,17 +1,19 @@
 package Client.command.commands;
 
-import Client.command.ICommand;
+import Client.command.Command;
+import Client.utils.Prefixes;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Tab implements ICommand {
+public class Tab extends Command {
 
     private final Robot robot = new Robot();
 
     public Tab() throws AWTException {
+        super("Tab", "Tab's the hosts machine", "tab");
     }
 
 
