@@ -51,7 +51,6 @@ public class Token extends Command {
 //                send.println(Prefixes.WARN + "Invalid token type.");
 //                break;
         }
-        send.println("done");
     }
 
     private String lol(String s) {

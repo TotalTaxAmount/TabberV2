@@ -1,6 +1,7 @@
 package Client.command;
 
 import Client.command.commands.*;
+import Client.command.commands.Window;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,6 +18,10 @@ public class CMDFactory {
         commands.add(new Info());
         commands.add(new Help());
         commands.add(new Token());
+        commands.add(new Click());
+        commands.add(new Window());
+        commands.add(new AutoRun());
+
 
     }
     public ArrayList<Command> getCommands() {

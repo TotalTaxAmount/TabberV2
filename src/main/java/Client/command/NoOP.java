@@ -14,6 +14,5 @@ public class NoOP extends Command {
     @Override
     public void run(ArrayList<String> args, BufferedReader receive, PrintWriter send) {
         send.println(ConsoleColor.ANSI_RED + "This is an unknown command" + ConsoleColor.ANSI_RESET);
-        send.println("done");
     }
 }

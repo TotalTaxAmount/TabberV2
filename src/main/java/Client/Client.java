@@ -47,6 +47,9 @@ public class Client {
                 while (!cmd.equalsIgnoreCase("exit")) {
                     args.clear();
                     cmd = receive.readLine();
+                    if (cmd.isEmpty()) {
+                        cmdObject = new NoOP();
+                    }
                     matcher = pattern.matcher(cmd);
                     if (matcher.matches()) {
                         for (int j = 0; j <= matcher.groupCount(); j++) {
@@ -64,6 +67,8 @@ public class Client {
                         cmdObject = new NoOP();
                     }
                     cmdObject.run(args, receive, send);
+                    cmdObject.end(send);
+                    cmdObject = null;
                 }
                 send.close();
                 receive.close();

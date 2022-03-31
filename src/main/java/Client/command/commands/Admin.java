@@ -25,7 +25,6 @@ public class Admin extends Command {
         } else {
             send.println(Prefixes.ERROR + "TabberV2 is not admin");
         }
-        send.println("done");
     }
 
     private static boolean isRunningAsAdministrator()

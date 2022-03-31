@@ -2,12 +2,14 @@ package Server;
 
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Set;
 
 public class Server {
     public void run(int port) {
         ServerSocket serverSocket = null;
         Socket socket = null;
+        ArrayList<EchoThread> echoThreads = new ArrayList<>();
 
         try {
             serverSocket = new ServerSocket(port);
@@ -16,6 +18,7 @@ public class Server {
             e.printStackTrace();
 
         }
+
         while (true) {
             try {
                 assert serverSocket != null;
@@ -24,8 +27,16 @@ public class Server {
                 System.out.println("I/O error: " + e);
             }
             // new thread for a client
-                System.out.println("New Client connected @ ip " + socket.getInetAddress());
-                new EchoThread(socket).start();
+            assert socket != null;
+            System.out.println("\nNew Client connected @ ip " + socket.getInetAddress());
+                 echoThreads.add(new EchoThread(socket));
+                 int i = 0;
+                 for (EchoThread echoThread : echoThreads) {
+                     echoThread.setName("EchoThread-" + i);
+                     echoThread.start();
+                     i++;
+                 }
+                 //new EchoThread(socket).start();
                 Set<Thread> threads = EchoThread.getAllStackTraces().keySet();
                 System.out.println(threads);
 

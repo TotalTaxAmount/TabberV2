@@ -31,6 +31,10 @@ public class EchoThread extends Thread {
                       \\_/\\__,_|_.__/|_.__/ \\___|_|   \\___/ \\_____/
                                                                  \s
                                                                  \s""");
+            System.out.println("By: InvisibleCat#0001");
+            System.out.println("Server started on port: " + ANSI_CYAN + socket.getLocalPort() + ANSI_RESET);
+            System.out.println("Connected to: " + ANSI_CYAN + socket.getInetAddress().toString().replaceAll("/", "") + ANSI_RESET);
+            System.out.println("Type 'help' for a list of commands");
 
 
             while (true) {
@@ -50,7 +54,7 @@ public class EchoThread extends Thread {
                     }
 
 
-                    Thread.sleep(1000);
+                    //Thread.sleep(1000);
                 } else {
                     send.println("exit");
                     System.out.println("Shutting down server and client");
@@ -59,7 +63,7 @@ public class EchoThread extends Thread {
                     return;
                 }
             }
-        } catch (IOException | InterruptedException ignored) {
+        } catch (IOException ignored) {
         }
         System.out.println("Done");
     }

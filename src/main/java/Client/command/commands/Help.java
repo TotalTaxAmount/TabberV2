@@ -29,6 +29,5 @@ public class Help extends Command {
             }
             send.println(sb);
         } catch (Exception ignored) {}
-        send.println("done");
     }
 }

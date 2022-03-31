@@ -16,6 +16,10 @@ public class Command {
     }
 
     public void run(ArrayList<String> args, BufferedReader receive, PrintWriter send){}
+    public void end(PrintWriter send){
+        send.println("done");
+        send.flush();
+    }
 
     public String getName() {
         return name;

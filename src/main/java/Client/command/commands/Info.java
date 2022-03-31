@@ -34,8 +34,9 @@ public class Info extends Command {
         send.println(Prefixes.INFO + "-----------------------");
         send.println(Prefixes.INFO + "  Country: " + Network.getCountry());
         send.println(Prefixes.INFO + "  City: " + Network.getCity(Network.getPublicIp()));
+        send.println(Prefixes.INFO + "-----------------------");
 
-        send.println("done");
+
     }
 
 
