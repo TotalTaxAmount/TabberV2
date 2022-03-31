@@ -5,11 +5,9 @@ import java.net.Socket;
 
 public class EchoThread extends Thread {
     protected Socket socket;
-    private static final String ANSI_BRIGHT_BLUE   = "\u001B[94m";
-    private static final String ANSI_RESET  = "\u001B[0m";
-    private static final String ANSI_CYAN   = "\u001B[36m";
-
-
+    private static final String ANSI_BRIGHT_BLUE = "\u001B[94m";
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_CYAN = "\u001B[36m";
 
 
     public EchoThread(Socket clientSocket) {
@@ -35,25 +33,24 @@ public class EchoThread extends Thread {
                                                                  \s""");
 
 
-            while (true)
-            {
+            while (true) {
                 System.out.println(ANSI_CYAN + "[I] " + "Enter a cmd...");
                 System.out.print(ANSI_BRIGHT_BLUE + "[C] " + ANSI_RESET);
                 String command = cmdInput.readLine();
-                if(!command.equalsIgnoreCase("exit"))
-                {
-                   send.println(command);
-                   //System.out.println(cmdInput.readLine());
-                   send.flush();
-                   String response = "";
-                   while (!response.equals("done")) {
-                       if (!response.equals("")) {
-                           System.out.println(ANSI_CYAN + "[I] " + response);
-                       }
-                       response = receive.readLine();
+                if (!command.equalsIgnoreCase("exit")) {
+                    send.println(command);
+                    //System.out.println(cmdInput.readLine());
+                    send.flush();
+                    String response = "";
+                    while (!response.equals("done")) {
+                        if (!response.equals("")) {
+                            System.out.println(response);
+                        }
+                        response = receive.readLine();
+                    }
 
-                   }
-                   Thread.sleep(1000);
+
+                    Thread.sleep(1000);
                 } else {
                     send.println("exit");
                     System.out.println("Shutting down server and client");
@@ -62,7 +59,8 @@ public class EchoThread extends Thread {
                     return;
                 }
             }
-        } catch (IOException | InterruptedException ignored) {}
+        } catch (IOException | InterruptedException ignored) {
+        }
         System.out.println("Done");
     }
 }

