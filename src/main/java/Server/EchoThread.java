@@ -8,6 +8,7 @@ public class EchoThread extends Thread {
     private static final String ANSI_BRIGHT_BLUE = "\u001B[94m";
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_CYAN = "\u001B[36m";
+    public boolean closed;
 
 
     public EchoThread(Socket clientSocket) {
@@ -41,7 +42,7 @@ public class EchoThread extends Thread {
                 System.out.println(ANSI_CYAN + "[I] " + "Enter a cmd...");
                 System.out.print(ANSI_BRIGHT_BLUE + "[C] " + ANSI_RESET);
                 String command = cmdInput.readLine();
-                if (!command.equalsIgnoreCase("exit")) {
+                if (!command.equalsIgnoreCase("exit") && !command.equalsIgnoreCase("shutdown")) {
                     send.println(command);
                     //System.out.println(cmdInput.readLine());
                     send.flush();
@@ -55,16 +56,18 @@ public class EchoThread extends Thread {
 
 
                     //Thread.sleep(1000);
-                } else {
+                } else if (command.equalsIgnoreCase("exit")) {
+                    System.out.println("Exiting...");
+                    this.closed = true;
+                }  else if (command.equalsIgnoreCase("shutdown")) {
                     send.println("exit");
-                    System.out.println("Shutting down server and client");
                     socket.close();
                     System.exit(0);
                     return;
                 }
             }
-        } catch (IOException ignored) {
-        }
+        } catch (IOException ignored) {}
         System.out.println("Done");
     }
+
 }

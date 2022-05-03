@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class Server {
-    public void run(int port) {
+    private ArrayList<EchoThread> echoThreads;
+    private EchoThread currentThread;
+
+    public void run(int port) throws IOException {
         ServerSocket serverSocket = null;
         Socket socket = null;
-        ArrayList<EchoThread> echoThreads = new ArrayList<>();
+        echoThreads = new ArrayList<>();
 
         try {
             serverSocket = new ServerSocket(port);
@@ -20,6 +23,12 @@ public class Server {
         }
 
         while (true) {
+            System.out.println("Select a thread to run: ");
+            for (EchoThread echoThread : echoThreads) {
+                System.out.println(echoThread.getName());
+            }
+
+
             try {
                 assert serverSocket != null;
                 socket = serverSocket.accept();
@@ -29,22 +38,52 @@ public class Server {
             // new thread for a client
             assert socket != null;
             System.out.println("\nNew Client connected @ ip " + socket.getInetAddress());
-                 echoThreads.add(new EchoThread(socket));
-                 int i = 0;
-                 for (EchoThread echoThread : echoThreads) {
-                     echoThread.setName("EchoThread-" + i);
-                     echoThread.start();
-                     i++;
-                 }
+             echoThreads.add(new EchoThread(socket));
+             int i = 0;
+             for (EchoThread echoThread : echoThreads) {
+                 echoThread.setName("EchoThread-" + i);
+                 i++;
+             }
+            update();
+
+
                  //new EchoThread(socket).start();
-                Set<Thread> threads = EchoThread.getAllStackTraces().keySet();
-                System.out.println(threads);
 
         }
     }
+    public EchoThread select(String echoThread) {
+        echoThread = "EchoThread-" + echoThread;
+        for (EchoThread echoThread1 : echoThreads) {
+            if (echoThread1.getName().equals(echoThread)) {
+                echoThread1.start();
+                return echoThread1;
+            } else if (echoThread1.isAlive()) {
+                echoThread1.interrupt();
+            }
+        }
+        return null;
+    }
 
-    public static void main(String[] args) {
+    public void update() throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        String input = in.readLine();
+        if (this.select(input) == null) {
+            System.out.println("Thread not found");
+            return;
+        } else {
+            currentThread = this.select(input);
+            currentThread.closed = false;
+            System.out.println("Thread selected: " + currentThread.getName());
+        }
+        if (currentThread.closed) {
+            System.out.println("Thread Closed");
+            currentThread = null;
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
         Server srv = new Server();
         srv.run(4020);
+
     }
 }
