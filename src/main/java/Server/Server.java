@@ -1,5 +1,6 @@
 package Server;
 
+import java.awt.*;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -24,10 +25,12 @@ public class Server {
 
         while (true) {
             System.out.println("Select a thread to run: ");
+            int a = 1;
             for (EchoThread echoThread : echoThreads) {
-                System.out.println(echoThread.getName());
+                System.out.println("[" + a + "] " + echoThread.getName());
             }
 
+            update();
 
             try {
                 assert serverSocket != null;
@@ -44,7 +47,6 @@ public class Server {
                  echoThread.setName("EchoThread-" + i);
                  i++;
              }
-            update();
 
 
                  //new EchoThread(socket).start();
@@ -52,11 +54,20 @@ public class Server {
         }
     }
     public EchoThread select(String echoThread) {
-        echoThread = "EchoThread-" + echoThread;
+        try {
+            Integer.parseInt(echoThread);
+        } catch (NumberFormatException e){
+            System.out.println("\"" + echoThread + "\" is not a number");
+            return null;
+        }
+
+        echoThread = "EchoThread-" + (Integer.parseInt(echoThread) - 1);
+
         for (EchoThread echoThread1 : echoThreads) {
             if (echoThread1.getName().equals(echoThread)) {
                 echoThread1.start();
                 return echoThread1;
+
             } else if (echoThread1.isAlive()) {
                 echoThread1.interrupt();
             }
