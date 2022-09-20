@@ -3,6 +3,4 @@
 ****
 **Tabber is a trolling program lol**
 
-Also im to lazey to acculy write a readme
-
-Sometimes I hate github
+im to lazy to write this there is no point
